@@ -255,7 +255,7 @@ img {max-width: 100%; height: auto;}
 .hero {
     background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
     color: var(--bg-white);
-    padding: 4rem 0;
+    padding: 3.5rem 0;
 }
 .hero__container {
     display: grid;
@@ -285,25 +285,81 @@ img {max-width: 100%; height: auto;}
     font-size: 0.875rem;
 }
 .hero__trust-item {display: flex; align-items: center; gap: 0.5rem;}
-.hero__media {
-    text-align: center;
+.hero__media {text-align: center;}
+.hero__image {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15), 0 25px 35px rgba(0,0,0,0.35);
+    margin-bottom: 1.25rem;
 }
-.hero__media img {
-    max-width: 380px;
+.hero__image img {
+    max-width: 360px;
     width: 100%;
-    margin: 0 auto;
-    filter: drop-shadow(0 25px 35px rgba(0,0,0,0.35));
 }
 .hero__badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.4rem 0.9rem;
+    gap: 0.6rem;
+    padding: 0.45rem 1.35rem;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.4);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
+    border: 1px solid rgba(255,255,255,0.6);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.8125rem;
+    color: var(--bg-white);
+    background: radial-gradient(circle at top, rgba(255,255,255,0.25), rgba(255,255,255,0.05));
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px);
+    margin-top: 1.25rem;
+    animation: badgePulse 2.4s ease-in-out infinite;
+}
+.hero__badge-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--secondary);
+    box-shadow: 0 0 10px rgba(255,152,0,0.8);
+    animation: dotGlow 1.4s ease-in-out infinite;
+}
+@keyframes badgePulse {
+    0% {transform: translateY(0) scale(1); box-shadow: 0 12px 30px rgba(0,0,0,0.35);}
+    55% {transform: translateY(-4px) scale(1.04); box-shadow: 0 16px 40px rgba(0,0,0,0.45);}
+    100% {transform: translateY(0) scale(1); box-shadow: 0 12px 30px rgba(0,0,0,0.35);}
+}
+@keyframes dotGlow {
+    0% {box-shadow: 0 0 6px rgba(255,152,0,0.4);}
+    50% {box-shadow: 0 0 14px rgba(255,152,0,0.95);}
+    100% {box-shadow: 0 0 6px rgba(255,152,0,0.4);}
+}
+.status-banner {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border);
+}
+.status-banner__content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    font-size: 0.95rem;
+    color: var(--text);
+}
+.status-banner__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--secondary);
+    animation: pulse 1.4s infinite;
+}
+@keyframes pulse {
+    0% {transform: scale(1); opacity: 1;}
+    70% {transform: scale(1.8); opacity: 0.2;}
+    100% {transform: scale(1); opacity: 1;}
 }
 
 /* Trust Section */
@@ -464,6 +520,37 @@ img {max-width: 100%; height: auto;}
     border-left: 4px solid var(--error);
 }
 .form__discrimination-alert--visible {display: block;}
+.form__note {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-top: -0.75rem;
+    margin-bottom: 1.5rem;
+}
+.role-switch {
+    display: inline-flex;
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 0.25rem;
+    margin-bottom: 1.5rem;
+    gap: 0.5rem;
+}
+.role-switch__btn {
+    border: none;
+    background: transparent;
+    padding: 0.6rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: background 0.2s, color 0.2s;
+}
+.role-switch__btn--active {
+    background: var(--primary);
+    color: var(--bg-white);
+    box-shadow: 0 6px 12px rgba(30,136,229,0.25);
+}
+.form-role {display: none;}
+.form-role--active {display: block;}
 
 /* FAQ */
 .faq {background: var(--bg-white);}
@@ -663,33 +750,45 @@ img {max-width: 100%; height: auto;}
 <section class="hero">
     <div class="container hero__container">
         <div class="hero__content">
-            <h1 class="hero__title" data-i18n="hero.title">Expat-friendly rentals, simplified.</h1>
-            <p class="hero__subtitle" data-i18n="hero.subtitle">Find homes that welcome expats — transparent info, clear terms, fair screening.</p>
+            <h1 class="hero__title" data-i18n="hero.title">Find a welcoming home, fast.</h1>
+            <p class="hero__subtitle" data-i18n="hero.subtitle">We are in pilot mode, collecting the right renters and landlords for curated matches.</p>
             
             <div class="hero__cta">
-                <a href="#expat-form" class="btn btn--primary" data-i18n="hero.cta.expat">I'm looking for a home</a>
-                <a href="#landlord-form" class="btn btn--secondary" data-i18n="hero.cta.landlord">List my property</a>
+                <a href="#expat-form" class="btn btn--primary" data-i18n="hero.cta.expat">Join renter list</a>
+                <a href="#landlord-form" class="btn btn--secondary" data-i18n="hero.cta.landlord">Apply to list</a>
             </div>
             
             <div class="hero__trust">
                 <div class="hero__trust-item">
                     <span>✓</span>
-                    <span data-i18n="hero.trust.policy">Anti-discrimination policy</span>
+                    <span data-i18n="hero.trust.policy">No bias screening</span>
                 </div>
                 <div class="hero__trust-item">
                     <span>✓</span>
-                    <span data-i18n="hero.trust.gdpr">GDPR-compliant</span>
+                    <span data-i18n="hero.trust.gdpr">GDPR-ready</span>
                 </div>
                 <div class="hero__trust-item">
                     <span>✓</span>
-                    <span data-i18n="hero.trust.multilang">Multi-language support</span>
+                    <span data-i18n="hero.trust.multilang">Support in EN / ET / RU</span>
                 </div>
             </div>
         </div>
         <div class="hero__media" aria-hidden="true">
-
+            <div class="hero__image">
             <img src="https://xpatly.eu/wp-content/uploads/2025/11/xpatly-white-logo.svg" alt="Xpatly emblem">
+            </div>
+            <div class="hero__badge">
+                <span class="hero__badge-dot" aria-hidden="true"></span>
+                <span data-i18n="hero.badge">Beta access</span>
+            </div>
         </div>
+    </div>
+</section>
+
+<section class="status-banner">
+    <div class="container status-banner__content">
+        <span class="status-banner__dot" aria-hidden="true"></span>
+        <p data-i18n="status.message">Pilot phase: applications reviewed daily, launches follow via phone confirmation.</p>
     </div>
 </section>
 
@@ -698,16 +797,16 @@ img {max-width: 100%; height: auto;}
         <h2 data-i18n="trust.title">Why Xpatly?</h2>
         <div class="trust__grid">
             <div class="trust__item">
-                <h3 class="trust__title" data-i18n="trust.language.title">Language Support</h3>
-                <p class="trust__text" data-i18n="trust.language.text">Browse and communicate in your preferred language.</p>
+                <h3 class="trust__title" data-i18n="trust.language.title">Human help</h3>
+                <p class="trust__text" data-i18n="trust.language.text">Real people reply in multiple languages.</p>
             </div>
             <div class="trust__item">
-                <h3 class="trust__title" data-i18n="trust.fair.title">Fair-Renting Policy</h3>
-                <p class="trust__text" data-i18n="trust.fair.text">Every listing follows our anti-discrimination pledge.</p>
+                <h3 class="trust__title" data-i18n="trust.fair.title">Fair review</h3>
+                <p class="trust__text" data-i18n="trust.fair.text">Every request is vetted manually before launch.</p>
             </div>
             <div class="trust__item">
-                <h3 class="trust__title" data-i18n="trust.verified.title">Verified Listings</h3>
-                <p class="trust__text" data-i18n="trust.verified.text">Quality-checked properties with transparent terms.</p>
+                <h3 class="trust__title" data-i18n="trust.verified.title">Curated matches</h3>
+                <p class="trust__text" data-i18n="trust.verified.text">Only verified renters and listings move forward.</p>
             </div>
         </div>
     </div>
@@ -715,58 +814,32 @@ img {max-width: 100%; height: auto;}
 
 <section class="section pledge">
     <div class="container pledge__content">
-        <h2 class="pledge__title" data-i18n="pledge.title">The Expat-Friendly Pledge</h2>
-        <p data-i18n="pledge.description">Landlords commit to fair treatment of all applicants, regardless of nationality, ethnicity, religion, or language.</p>
-        <div class="pledge__badge" data-i18n="pledge.badge">Equality First, Always</div>
-        <p style="margin-top: 1.5rem; font-size: 0.938rem;" data-i18n="pledge.microcopy">We block discriminatory phrases to keep the marketplace fair and open.</p>
+        <h2 class="pledge__title" data-i18n="pledge.title">Our simple pledge</h2>
+        <p data-i18n="pledge.description">Equal treatment, clear rules, zero tolerance for discrimination.</p>
+        <div class="pledge__badge" data-i18n="pledge.badge">Fair housing</div>
+        <p style="margin-top: 1.5rem; font-size: 0.938rem;" data-i18n="pledge.microcopy">We block biased wording before anything goes public.</p>
     </div>
 </section>
 
 <section class="section how">
     <div class="container">
         <h2 data-i18n="how.title">How It Works</h2>
-        
-        <div class="how__tabs">
-            <button class="how__tab how__tab--active" data-target="expat" data-i18n="how.tabs.expat">For Expats</button>
-            <button class="how__tab" data-target="landlord" data-i18n="how.tabs.landlord">For Landlords</button>
-        </div>
-        
         <div class="how__content how__content--active" id="how-expat">
             <div class="how__steps">
                 <div class="how__step">
                     <div class="how__step-number">1</div>
-                    <h3 class="how__step-title" data-i18n="how.expat.step1.title">Share Your Preferences</h3>
-                    <p class="how__step-text" data-i18n="how.expat.step1.text">Tell us what you're looking for: location, budget, move-in date.</p>
+                    <h3 class="how__step-title" data-i18n="how.expat.step1.title">Send the basics</h3>
+                    <p class="how__step-text" data-i18n="how.expat.step1.text">City, timing, budget—nothing more.</p>
                 </div>
                 <div class="how__step">
                     <div class="how__step-number">2</div>
-                    <h3 class="how__step-title" data-i18n="how.expat.step2.title">Get Matched</h3>
-                    <p class="how__step-text" data-i18n="how.expat.step2.text">Receive listings that match your criteria.</p>
+                    <h3 class="how__step-title" data-i18n="how.expat.step2.title">We call you</h3>
+                    <p class="how__step-text" data-i18n="how.expat.step2.text">A quick phone check aligns expectations.</p>
                 </div>
                 <div class="how__step">
                     <div class="how__step-number">3</div>
-                    <h3 class="how__step-title" data-i18n="how.expat.step3.title">Connect & Move In</h3>
-                    <p class="how__step-text" data-i18n="how.expat.step3.text">Communicate directly with landlords.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="how__content" id="how-landlord">
-            <div class="how__steps">
-                <div class="how__step">
-                    <div class="how__step-number">1</div>
-                    <h3 class="how__step-title" data-i18n="how.landlord.step1.title">Create Your Listing</h3>
-                    <p class="how__step-text" data-i18n="how.landlord.step1.text">Add property details and check the Expat-Friendly Pledge.</p>
-                </div>
-                <div class="how__step">
-                    <div class="how__step-number">2</div>
-                    <h3 class="how__step-title" data-i18n="how.landlord.step2.title">Verification</h3>
-                    <p class="how__step-text" data-i18n="how.landlord.step2.text">Our team reviews your listing for quality.</p>
-                </div>
-                <div class="how__step">
-                    <div class="how__step-number">3</div>
-                    <h3 class="how__step-title" data-i18n="how.landlord.step3.title">Connect with Tenants</h3>
-                    <p class="how__step-text" data-i18n="how.landlord.step3.text">Receive applications from verified renters.</p>
+                    <h3 class="how__step-title" data-i18n="how.expat.step3.title">Launch together</h3>
+                    <p class="how__step-text" data-i18n="how.expat.step3.text">We gather photos and publish once you’re ready.</p>
                 </div>
             </div>
         </div>
@@ -775,115 +848,80 @@ img {max-width: 100%; height: auto;}
 
 <section class="section forms" id="forms">
     <div class="container">
-        <div class="forms__grid">
-            <!-- Expat Form -->
-            <div class="form-card" id="expat-form">
-                <h2 class="form-card__title" data-i18n="forms.expat.title">Find Your Home</h2>
-                <p class="form-card__subtitle" data-i18n="forms.expat.subtitle">Tell us what you're looking for.</p>
+        <div class="form-card" id="access-card">
+            <h2 class="form-card__title" data-i18n="forms.access.title">Request access</h2>
+            <p class="form-card__subtitle" data-i18n="forms.access.subtitle">Pick your profile and share the essentials.</p>
+            
+            <div class="role-switch" role="tablist">
+                <button type="button" class="role-switch__btn role-switch__btn--active" data-role-btn="renter" data-i18n="forms.roles.renter">Renter</button>
+                <button type="button" class="role-switch__btn" data-role-btn="landlord" data-i18n="forms.roles.landlord">Landlord</button>
+            </div>
+            <p class="form__note" data-role-note data-i18n="forms.expat.note">Early-access matches happen weekly—leave just the essentials.</p>
+            
+            <div class="form__success" id="access-success">
+                <p data-i18n="forms.success">Thanks! We'll get back within 24–48h.</p>
+            </div>
+            
+            <div class="form__discrimination-alert" id="access-discrimination">
+                <p data-i18n="forms.discrimination">Your message contains prohibited language. Please revise.</p>
+            </div>
+            
+            <form id="access-form" novalidate>
+                <input type="text" name="website" class="form__honeypot" tabindex="-1" autocomplete="off">
+                <input type="hidden" name="role" id="form-role-input" value="renter">
                 
-                <div class="form__success" id="expat-success">
-                    <p data-i18n="forms.success">Thanks! We'll get back within 24–48h.</p>
+                <div class="form-group form-group--required">
+                    <label for="access-name" data-i18n="forms.expat.name">Full Name</label>
+                    <input type="text" id="access-name" name="name" required>
+                    <div class="form-group__error" data-i18n="forms.errors.required">This field is required.</div>
                 </div>
                 
-                <div class="form__discrimination-alert" id="expat-discrimination">
-                    <p data-i18n="forms.discrimination">Your message contains prohibited language. Please revise.</p>
+                <div class="form-group form-group--required">
+                    <label for="access-email" data-i18n="forms.expat.email">Email</label>
+                    <input type="email" id="access-email" name="email" required>
+                    <div class="form-group__error" data-i18n="forms.errors.email">Please enter a valid email.</div>
                 </div>
                 
-                <form id="expat-lead-form" novalidate>
-                    <input type="text" name="website" class="form__honeypot" tabindex="-1" autocomplete="off">
-                    
-                    <div class="form-group form-group--required">
-                        <label for="expat-name" data-i18n="forms.expat.name">Full Name</label>
-                        <input type="text" id="expat-name" name="name" required>
-                        <div class="form-group__error" data-i18n="forms.errors.required">This field is required.</div>
-                    </div>
-                    
-                    <div class="form-group form-group--required">
-                        <label for="expat-email" data-i18n="forms.expat.email">Email</label>
-                        <input type="email" id="expat-email" name="email" required>
-                        <div class="form-group__error" data-i18n="forms.errors.email">Please enter a valid email.</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="expat-phone" data-i18n="forms.expat.phone">Phone (Optional)</label>
-                        <input type="tel" id="expat-phone" name="phone" placeholder="+49 123 456789">
-                    </div>
-                    
+                <div class="form-group">
+                    <label for="access-phone" data-i18n="forms.expat.phone">Phone (Optional)</label>
+                    <input type="tel" id="access-phone" name="phone" placeholder="+49 123 456789">
+                </div>
+                
+                <div class="form-role form-role--active" data-role-section="renter">
                     <div class="form-group form-group--required">
                         <label for="expat-city" data-i18n="forms.expat.city">City</label>
-                        <input type="text" id="expat-city" name="city" required>
+                        <input type="text" id="expat-city" name="renter_city" data-required="true">
                         <div class="form-group__error" data-i18n="forms.errors.required">This field is required.</div>
                     </div>
                     
                     <div class="form-group form-group--required">
                         <label for="expat-budget" data-i18n="forms.expat.budget">Budget (€/month)</label>
-                        <input type="number" id="expat-budget" name="budget" min="0" required>
+                        <input type="number" id="expat-budget" name="renter_budget" min="0" data-required="true">
                         <div class="form-group__error" data-i18n="forms.errors.number">Please enter a valid number.</div>
                     </div>
                     
                     <div class="form-group form-group--required">
                         <label for="expat-movein" data-i18n="forms.expat.movein">Move-in Date</label>
-                        <input type="date" id="expat-movein" name="movein" required>
+                        <input type="date" id="expat-movein" name="renter_movein" data-required="true">
                         <div class="form-group__error" data-i18n="forms.errors.required">This field is required.</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="expat-message" data-i18n="forms.expat.message">Additional Requirements</label>
-                        <textarea id="expat-message" name="message" rows="4"></textarea>
+                        <label for="expat-message" data-i18n="forms.expat.message">Must-haves</label>
+                        <textarea id="expat-message" name="renter_message" rows="4"></textarea>
                     </div>
-                    
-                    <div class="form-group form-group--checkbox form-group--required">
-                        <input type="checkbox" id="expat-gdpr" name="gdpr" required>
-                        <label for="expat-gdpr" data-i18n="forms.expat.gdpr">I agree to the privacy policy.</label>
-                        <div class="form-group__error" data-i18n="forms.errors.required">You must agree to continue.</div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn--primary btn--block" data-i18n="forms.expat.submit">Find My Home</button>
-                </form>
-            </div>
-            
-            <!-- Landlord Form -->
-            <div class="form-card" id="landlord-form">
-                <h2 class="form-card__title" data-i18n="forms.landlord.title">List Your Property</h2>
-                <p class="form-card__subtitle" data-i18n="forms.landlord.subtitle">Join our network.</p>
-                
-                <div class="form__success" id="landlord-success">
-                    <p data-i18n="forms.success">Thanks! We'll get back within 24–48h.</p>
                 </div>
                 
-                <div class="form__discrimination-alert" id="landlord-discrimination">
-                    <p data-i18n="forms.discrimination">Your message contains prohibited language. Please revise.</p>
-                </div>
-                
-                <form id="landlord-lead-form" novalidate>
-                    <input type="text" name="website" class="form__honeypot" tabindex="-1" autocomplete="off">
-                    
-                    <div class="form-group form-group--required">
-                        <label for="landlord-name" data-i18n="forms.landlord.name">Name / Company</label>
-                        <input type="text" id="landlord-name" name="name" required>
-                        <div class="form-group__error" data-i18n="forms.errors.required">This field is required.</div>
-                    </div>
-                    
-                    <div class="form-group form-group--required">
-                        <label for="landlord-email" data-i18n="forms.landlord.email">Email</label>
-                        <input type="email" id="landlord-email" name="email" required>
-                        <div class="form-group__error" data-i18n="forms.errors.email">Please enter a valid email.</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="landlord-phone" data-i18n="forms.landlord.phone">Phone</label>
-                        <input type="tel" id="landlord-phone" name="phone" placeholder="+49 123 456789">
-                    </div>
-                    
+                <div class="form-role" data-role-section="landlord" aria-hidden="true">
                     <div class="form-group form-group--required">
                         <label for="landlord-city" data-i18n="forms.landlord.city">City / Area</label>
-                        <input type="text" id="landlord-city" name="city" required>
+                        <input type="text" id="landlord-city" name="landlord_city" data-required="true">
                         <div class="form-group__error" data-i18n="forms.errors.required">This field is required.</div>
                     </div>
                     
                     <div class="form-group form-group--required">
                         <label for="landlord-type" data-i18n="forms.landlord.type">Property Type</label>
-                        <select id="landlord-type" name="type" required>
+                        <select id="landlord-type" name="landlord_type" data-required="true">
                             <option value="" data-i18n="forms.landlord.typeSelect">Select type</option>
                             <option value="apartment" data-i18n="forms.landlord.typeApartment">Apartment</option>
                             <option value="house" data-i18n="forms.landlord.typeHouse">House</option>
@@ -895,36 +933,36 @@ img {max-width: 100%; height: auto;}
                     
                     <div class="form-group form-group--required">
                         <label for="landlord-rooms" data-i18n="forms.landlord.rooms">Rooms</label>
-                        <input type="number" id="landlord-rooms" name="rooms" min="1" required>
+                        <input type="number" id="landlord-rooms" name="landlord_rooms" min="1" data-required="true">
                         <div class="form-group__error" data-i18n="forms.errors.number">Please enter a valid number.</div>
                     </div>
                     
                     <div class="form-group form-group--required">
                         <label for="landlord-rent" data-i18n="forms.landlord.rent">Rent (€/month)</label>
-                        <input type="number" id="landlord-rent" name="rent" min="0" required>
+                        <input type="number" id="landlord-rent" name="landlord_rent" min="0" data-required="true">
                         <div class="form-group__error" data-i18n="forms.errors.number">Please enter a valid number.</div>
                     </div>
                     
                     <div class="form-group form-group--checkbox form-group--required">
-                        <input type="checkbox" id="landlord-pledge" name="pledge" required>
+                        <input type="checkbox" id="landlord-pledge" name="landlord_pledge" data-required="true">
                         <label for="landlord-pledge" data-i18n="forms.landlord.pledge">I commit to the Expat-Friendly Pledge</label>
                         <div class="form-group__error" data-i18n="forms.errors.pledgeRequired">You must commit to the pledge.</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="landlord-message" data-i18n="forms.landlord.message">Additional Information</label>
-                        <textarea id="landlord-message" name="message" rows="4"></textarea>
+                        <label for="landlord-message" data-i18n="forms.landlord.message">Notes for our team</label>
+                        <textarea id="landlord-message" name="landlord_message" rows="4"></textarea>
                     </div>
-                    
-                    <div class="form-group form-group--checkbox form-group--required">
-                        <input type="checkbox" id="landlord-gdpr" name="gdpr" required>
-                        <label for="landlord-gdpr" data-i18n="forms.landlord.gdpr">I agree to the privacy policy.</label>
-                        <div class="form-group__error" data-i18n="forms.errors.required">You must agree to continue.</div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn--primary btn--block" data-i18n="forms.landlord.submit">List My Property</button>
-                </form>
-            </div>
+                </div>
+                
+                <div class="form-group form-group--checkbox form-group--required">
+                    <input type="checkbox" id="access-gdpr" name="gdpr" required>
+                    <label for="access-gdpr" data-i18n="forms.expat.gdpr">I agree to the privacy policy.</label>
+                    <div class="form-group__error" data-i18n="forms.errors.required">You must agree to continue.</div>
+                </div>
+                
+                <button type="submit" class="btn btn--primary btn--block" data-role-submit data-i18n="forms.expat.submit">Save my spot</button>
+            </form>
         </div>
     </div>
 </section>
@@ -933,53 +971,23 @@ img {max-width: 100%; height: auto;}
     <div class="container faq__container">
         <h2 class="faq__title" data-i18n="faq.title">Frequently Asked Questions</h2>
         <div class="faq__list">
-            <div class="faq__item">
+            <div class="faq__item faq__item--active">
                 <button class="faq__question">
-                    <span data-i18n="faq.q1">What does "Expat-Friendly" mean?</span>
+                    <span data-i18n="faq.q1">What happens after I submit the form?</span>
                     <svg class="faq__icon" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
                 </button>
                 <div class="faq__answer">
-                    <div class="faq__answer-content" data-i18n="faq.a1">Expat-Friendly properties welcome international tenants with clear terms and fair screening.</div>
+                    <div class="faq__answer-content" data-i18n="faq.a1">We review every request the same day, call you for missing info, and prep the next steps together.</div>
                 </div>
             </div>
             
             <div class="faq__item">
                 <button class="faq__question">
-                    <span data-i18n="faq.q2">How do you verify listings?</span>
+                    <span data-i18n="faq.q2">When will my listing go live?</span>
                     <svg class="faq__icon" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
                 </button>
                 <div class="faq__answer">
-                    <div class="faq__answer-content" data-i18n="faq.a2">Our team reviews each listing for quality and anti-discrimination compliance.</div>
-                </div>
-            </div>
-            
-            <div class="faq__item">
-                <button class="faq__question">
-                    <span data-i18n="faq.q3">Is Xpatly free to use?</span>
-                    <svg class="faq__icon" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                </button>
-                <div class="faq__answer">
-                    <div class="faq__answer-content" data-i18n="faq.a3">For expats, browsing is free. Landlords pay a listing fee when they successfully rent.</div>
-                </div>
-            </div>
-            
-            <div class="faq__item">
-                <button class="faq__question">
-                    <span data-i18n="faq.q4">What languages do you support?</span>
-                    <svg class="faq__icon" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                </button>
-                <div class="faq__answer">
-                    <div class="faq__answer-content" data-i18n="faq.a4">We support English, German, Turkish, Estonian, and Russian.</div>
-                </div>
-            </div>
-            
-            <div class="faq__item">
-                <button class="faq__question">
-                    <span data-i18n="faq.q5">How is my data protected?</span>
-                    <svg class="faq__icon" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                </button>
-                <div class="faq__answer">
-                    <div class="faq__answer-content" data-i18n="faq.a5">We are fully GDPR-compliant with encrypted, secure data storage.</div>
+                    <div class="faq__answer-content" data-i18n="faq.a2">After the verification call we collect photos, craft the copy, and publish with your approval—usually within 48 hours.</div>
                 </div>
             </div>
         </div>
@@ -1061,62 +1069,67 @@ const LANG_DETAILS = {
 
 const i18n = {
     en: {
+        status: {
+            message: "Pilot phase: applications reviewed daily, launches follow via phone confirmation."
+        },
         hero: {
-            title: "Expat-friendly rentals, simplified.",
-            subtitle: "Find homes that welcome expats — transparent info, clear terms, fair screening.",
-            cta: {
-                expat: "I'm looking for a home",
-                landlord: "List my property"
-            },
+            title: "Find a welcoming home, fast.",
+            subtitle: "We are in pilot mode, bringing the right renters and landlords together for curated matches.",
+            badge: "Beta access",
+            cta: { expat: "Join renter list", landlord: "Apply to list" },
             trust: {
-                policy: "Anti-discrimination policy",
-                gdpr: "GDPR-compliant",
-                multilang: "Multi-language support"
+                policy: "No bias screening",
+                gdpr: "GDPR-ready",
+                multilang: "Support in EN / ET / RU"
             }
         },
         trust: {
             title: "Why Xpatly?",
-            language: { title: "Language Support", text: "Browse and communicate in your preferred language." },
-            fair: { title: "Fair-Renting Policy", text: "Every listing follows our anti-discrimination pledge." },
-            verified: { title: "Verified Listings", text: "Quality-checked properties with transparent terms." }
+            language: { title: "Human help", text: "Real team support in multiple languages." },
+            fair: { title: "Fair review", text: "Every request is vetted manually before launch." },
+            verified: { title: "Curated matches", text: "Only verified renters and listings move forward." }
         },
         pledge: {
-            title: "The Expat-Friendly Pledge",
-            description: "Landlords commit to fair treatment of all applicants, regardless of nationality, ethnicity, religion, or language.",
-            badge: "Equality First, Always",
-            microcopy: "We block discriminatory phrases to keep the marketplace fair and open."
+            title: "Our simple pledge",
+            description: "Equal treatment, clear rules, zero tolerance for discrimination.",
+            badge: "Fair housing",
+            microcopy: "We block biased wording before anything goes public."
         },
         how: {
-            title: "How It Works",
-            tabs: { expat: "For Expats", landlord: "For Landlords" },
+            title: "How it works",
             expat: {
-                step1: { title: "Share Your Preferences", text: "Tell us what you're looking for: location, budget, move-in date." },
-                step2: { title: "Get Matched", text: "Receive listings that match your criteria." },
-                step3: { title: "Connect & Move In", text: "Communicate directly with landlords." }
-            },
-            landlord: {
-                step1: { title: "Create Your Listing", text: "Add property details and check the Expat-Friendly Pledge." },
-                step2: { title: "Verification", text: "Our team reviews your listing for quality." },
-                step3: { title: "Connect with Tenants", text: "Receive applications from verified renters." }
+                step1: { title: "Send the basics", text: "City, timing, budget—nothing more." },
+                step2: { title: "We call you", text: "A quick phone check aligns expectations." },
+                step3: { title: "Launch together", text: "We gather photos and publish once you’re ready." }
             }
         },
         forms: {
+            access: {
+                title: "Request access",
+                subtitle: "Pick your profile and share the essentials."
+            },
+            roles: {
+                renter: "Renter",
+                landlord: "Landlord"
+            },
             expat: {
-                title: "Find Your Home",
-                subtitle: "Tell us what you're looking for.",
+                title: "Join renter list",
+                subtitle: "Short form, curated matches.",
+                note: "Early-access matches happen weekly—leave just the essentials.",
                 name: "Full Name",
                 email: "Email",
                 phone: "Phone (Optional)",
                 city: "City",
                 budget: "Budget (€/month)",
                 movein: "Move-in Date",
-                message: "Additional Requirements",
+                message: "Must-haves",
                 gdpr: "I agree to the privacy policy.",
-                submit: "Find My Home"
+                submit: "Save my spot"
             },
             landlord: {
-                title: "List Your Property",
-                subtitle: "Join our network.",
+                title: "Apply to list",
+                subtitle: "Tell us about the property.",
+                note: "We call within 24 hours to gather photos and publish details together.",
                 name: "Name / Company",
                 email: "Email",
                 phone: "Phone",
@@ -1130,9 +1143,9 @@ const i18n = {
                 rooms: "Rooms",
                 rent: "Rent (€/month)",
                 pledge: "I commit to the Expat-Friendly Pledge",
-                message: "Additional Information",
+                message: "Notes for our team",
                 gdpr: "I agree to the privacy policy.",
-                submit: "List My Property"
+                submit: "Send application"
             },
             success: "Thanks! We'll get back within 24–48h.",
             discrimination: "Your message contains prohibited language. Please revise.",
@@ -1145,16 +1158,10 @@ const i18n = {
         },
         faq: {
             title: "Frequently Asked Questions",
-            q1: "What does \"Expat-Friendly\" mean?",
-            a1: "Expat-Friendly properties welcome international tenants with clear terms and fair screening.",
-            q2: "How do you verify listings?",
-            a2: "Our team reviews each listing for quality and anti-discrimination compliance.",
-            q3: "Is Xpatly free to use?",
-            a3: "For expats, browsing is free. Landlords pay a listing fee when they successfully rent.",
-            q4: "What languages do you support?",
-            a4: "We support English, Estonian, and Russian.",
-            q5: "How is my data protected?",
-            a5: "We are fully GDPR-compliant with encrypted, secure data storage."
+            q1: "What happens after I submit the form?",
+            a1: "We review every request the same day, call you for missing info, and prep the next steps together.",
+            q2: "When will my listing go live?",
+            a2: "After the verification call we collect photos, craft the copy, and publish with your approval—usually within 48 hours."
         },
         footer: {
             description: "Making expat-friendly rentals accessible to everyone.",
@@ -1195,59 +1202,67 @@ const i18n = {
         }
     },
     et: {
+        status: {
+            message: "Pilootfaas: vaatame taotlused iga päev üle ja kinnitame telefoni teel."
+        },
         hero: {
-            title: "Ekspatsõbralik üürimine, lihtsustatud.",
-            subtitle: "Leia kodu, kus rahvusvahelisi üürnikke oodatakse – selged tingimused ja aus sõel.",
-            cta: { expat: "Otsin kodu", landlord: "Lisan kuulutuse" },
+            title: "Leia sobiv kodu kiiresti.",
+            subtitle: "Oleme pilootfaasis ja toome kokku õiged üürnikud ning üürileandjad.",
+            badge: "Beeta ligipääs",
+            cta: { expat: "Liitu otsijatega", landlord: "Avalda huvi" },
             trust: {
-                policy: "Diskrimineerimisvastane poliitika",
-                gdpr: "GDPR-ile vastav",
-                multilang: "Mitmekeelne tugi"
+                policy: "Ilma eelarvamusteta",
+                gdpr: "GDPR-valmis",
+                multilang: "Tugi EN / ET / RU"
             }
         },
         trust: {
             title: "Miks Xpatly?",
-            language: { title: "Keeletugi", text: "Sirvi kuulutusi ja suhtle endale sobivas keeles." },
-            fair: { title: "Aus üüripoliitika", text: "Iga kuulutus järgib meie tõotust." },
-            verified: { title: "Kontrollitud kuulutused", text: "Kvaliteedikontrollitud objektid ja läbipaistvad tingimused." }
+            language: { title: "Inimlik tugi", text: "Reaalsed inimesed vastavad mitmes keeles." },
+            fair: { title: "Aus kontroll", text: "Iga taotlus vaadatakse käsitsi läbi." },
+            verified: { title: "Kureeritud sobitused", text: "Avaldame vaid kinnitatud kuulutused ja üürnikud." }
         },
         pledge: {
-            title: "Ekspat-sõbralikkuse tõotus",
-            description: "Üürileandjad lubavad kohelda kõiki taotlejaid võrdselt, sõltumata rahvusest, päritolust või keelest.",
-            badge: "Võrdsus ennekõike",
-            microcopy: "Blokeerime diskrimineerivad väljendid, et hoida turgu ausana."
+            title: "Meie lihtne tõotus",
+            description: "Võrdne kohtlemine, selged reeglid ja null tolerants diskrimineerimisele.",
+            badge: "Aus üürimine",
+            microcopy: "Blokeerime kallutatud sõnastuse juba enne avaldamist."
         },
         how: {
             title: "Kuidas see toimib",
-            tabs: { expat: "Ekspattidele", landlord: "Üürileandjatele" },
             expat: {
-                step1: { title: "Jaga oma soove", text: "Anna teada linn, eelarve ja kolimise aeg." },
-                step2: { title: "Saa sobivad pakkumised", text: "Saadame kuulutusi, mis vastavad kriteeriumidele." },
-                step3: { title: "Võta ühendust ja koli sisse", text: "Suhtle otse üürileandjatega." }
-            },
-            landlord: {
-                step1: { title: "Loo kuulutus", text: "Lisa detailid ja kinnita tõotus." },
-                step2: { title: "Kontroll", text: "Meeskond kontrollib kvaliteeti." },
-                step3: { title: "Kohtu üürnikega", text: "Saa taotlusi kinnitatud ekspattidelt." }
+                step1: { title: "Saada põhiandmed", text: "Linn, eelarve, kolimisaeg." },
+                step2: { title: "Helistame sulle", text: "Kiire kõne joondab ootused." },
+                step3: { title: "Käivita koos meiega", text: "Kogume fotod ja avaldame, kui oled valmis." }
             }
         },
         forms: {
+            access: {
+                title: "Esita ligipääsutaotlus",
+                subtitle: "Vali roll ja jaga vaid vajalikku infot."
+            },
+            roles: {
+                renter: "Üürnik",
+                landlord: "Üürileandja"
+            },
             expat: {
-                title: "Leia oma kodu",
-                subtitle: "Räägi meile, mida otsid.",
+                title: "Liitu otsijatega",
+                subtitle: "Lühike vorm, kureeritud sobivused.",
+                note: "Varajased sobitused toimuvad kord nädalas – jaga vaid põhiinfot.",
                 name: "Täisnimi",
                 email: "Email",
                 phone: "Telefon (valikuline)",
                 city: "Linn",
                 budget: "Eelarve (€/kuus)",
                 movein: "Kolimiskuupäev",
-                message: "Täiendavad soovid",
+                message: "Olulised soovid",
                 gdpr: "Nõustun privaatsuspoliitikaga.",
-                submit: "Otsi kodu"
+                submit: "Salvesta koht"
             },
             landlord: {
-                title: "Lisa oma kinnisvara",
-                subtitle: "Liitu meie võrgustikuga.",
+                title: "Avalda huvi",
+                subtitle: "Räägi meile oma kinnisvarast.",
+                note: "Helistame 24 h jooksul, kogume fotod ja avaldame koos.",
                 name: "Nimi / ettevõte",
                 email: "Email",
                 phone: "Telefon",
@@ -1261,9 +1276,9 @@ const i18n = {
                 rooms: "Tubade arv",
                 rent: "Üür (€/kuus)",
                 pledge: "Kinnitan ekspatsõbralikkuse tõotuse",
-                message: "Lisainfo",
+                message: "Märkused meeskonnale",
                 gdpr: "Nõustun privaatsuspoliitikaga.",
-                submit: "Avalda kuulutus"
+                submit: "Saada taotlus"
             },
             success: "Aitäh! Vastame 24–48 tunni jooksul.",
             discrimination: "Sõnum sisaldab keelatud väljendeid. Palun muuda teksti.",
@@ -1276,16 +1291,10 @@ const i18n = {
         },
         faq: {
             title: "Korduma kippuvad küsimused",
-            q1: "Mida tähendab \"ekspatsõbralik\"?",
-            a1: "See tähendab, et üürileandjad tervitavad rahvusvahelisi üürnikke ja pakuvad selgeid tingimusi.",
-            q2: "Kuidas te kuulutusi kontrollite?",
-            a2: "Meie tiim vaatab iga kuulutuse üle, et tagada kvaliteet ja diskrimineerimisvastane lähenemine.",
-            q3: "Kas Xpatly on tasuta?",
-            a3: "Ekspattidele on sirvimine tasuta. Üürileandjad maksavad väikse tasu, kui üürisuhe sõlmitakse.",
-            q4: "Milliseid keeli toetatakse?",
-            a4: "Toetame inglise, eesti ja vene keelt.",
-            q5: "Kuidas minu andmeid kaitstakse?",
-            a5: "Järgime täielikult GDPR-i ja hoiame andmeid turvaliselt."
+            q1: "Mis saab pärast vormi esitamist?",
+            a1: "Vaatame taotluse samal päeval üle, helistame lisainfo jaoks ja lepime sammud kokku.",
+            q2: "Millal kuulutus avaldatakse?",
+            a2: "Pärast kõnet kogume fotod, kirjutame teksti ja avaldame sinu kinnitusega – tavaliselt 48 h jooksul."
         },
         footer: {
             description: "Muudame ekspatsõbraliku üürimise kõigile kättesaadavaks.",
@@ -1305,80 +1314,88 @@ const i18n = {
             },
             how: {
                 title: "Kuidas see toimib",
-                body: "Jaga oma otsingukriteeriume või lisa kuulutus; kontrollime infot ja leiame mõlemale poolele sobiva vaste."
+                body: "Jaga oma kriteeriume või lisa kuulutus; kontrollime info ja leiame mõlemale poolele sobiva vastuse."
             },
             contact: {
                 title: "Võta ühendust",
-                body: "Kirjuta hello@xpatly.com või kasuta ülalolevaid vorme – vastame ühe tööpäeva jooksul."
+                body: "Kirjuta hello@xpatly.com või kasuta vorme – vastame ühe tööpäeva jooksul."
             },
             privacy: {
-                title: "Privaatsuslubadus",
-                body: "Kõik päringud salvestatakse turvaliselt ja neid töödeldakse GDPR-i kohaselt krüpteeritult."
+                title: "Privaatsus",
+                body: "Kõik andmed hoiustatakse krüpteeritult ja GDPR-i järgides."
             },
             terms: {
-                title: "Tingimuste kokkuvõte",
-                body: "Kuulutused peavad olema läbipaistvad, teenustasu rakendub edu korral ning andmeid võib igal ajal kustutada."
+                title: "Tingimused",
+                body: "Teenustasu rakendub vaid edu korral ning saad alati paluda andmete kustutamist."
             },
             policy: {
                 title: "Diskrimineerimisvastane kord",
-                body: "Blokeerime ebaõiglase keelekasutuse ja peatame partnerid, kes ei järgi kaasavat sõela."
+                body: "Ebaõiglane keelekasutus eemaldatakse ja partnerid, kes reegleid rikuvad, peatatakse."
             }
         }
     },
     ru: {
+        status: {
+            message: "Пилотный этап: заявки проверяем ежедневно и подтверждаем по телефону."
+        },
         hero: {
-            title: "Аренда, дружелюбная к экспатам — без лишних сложностей.",
-            subtitle: "Находите жильё, где рады экспатам: прозрачные условия, честный отбор.",
-            cta: { expat: "Ищу жильё", landlord: "Разместить объект" },
+            title: "Найдите жильё, где рады экспатам.",
+            subtitle: "Мы в пилоте: собираем подходящих арендаторов и арендодателей для точных совпадений.",
+            badge: "Бета-доступ",
+            cta: { expat: "Записаться в лист", landlord: "Подать заявку" },
             trust: {
-                policy: "Политика против дискриминации",
-                gdpr: "Соответствие GDPR",
-                multilang: "Поддержка на нескольких языках"
+                policy: "Без дискриминации",
+                gdpr: "GDPR-соответствие",
+                multilang: "Поддержка EN / ET / RU"
             }
         },
         trust: {
             title: "Почему Xpatly?",
-            language: { title: "Языковая поддержка", text: "Просматривайте объявления и общайтесь на удобном языке." },
-            fair: { title: "Честная аренда", text: "Каждое объявление следует нашему антидискриминационному кодексу." },
-            verified: { title: "Проверенные объявления", text: "Объекты проходят проверку и прозрачное описание." }
+            language: { title: "Живые люди", text: "Команда отвечает на трёх языках." },
+            fair: { title: "Честная проверка", text: "Каждую заявку мы рассматриваем вручную." },
+            verified: { title: "Кураторский подход", text: "В работу идут только подтверждённые объекты и арендаторы." }
         },
         pledge: {
-            title: "Обещание дружелюбия к экспатам",
-            description: "Арендодатели обязуются честно относиться к каждому, независимо от гражданства, этничности, религии или языка.",
-            badge: "Равенство превыше всего",
-            microcopy: "Мы блокируем дискриминационные фразы, чтобы сохранить честный маркетплейс."
+            title: "Наше обещание",
+            description: "Равные условия, понятные правила и нулевая терпимость к предвзятости.",
+            badge: "Честная аренда",
+            microcopy: "Мы фильтруем дискриминационную лексику до публикации."
         },
         how: {
             title: "Как это работает",
-            tabs: { expat: "Для экспатов", landlord: "Для арендодателей" },
             expat: {
-                step1: { title: "Поделитесь своими пожеланиями", text: "Расскажите о городе, бюджете и сроках заселения." },
-                step2: { title: "Получайте подборки", text: "Мы пришлём объявления, которые подходят под критерии." },
-                step3: { title: "Свяжитесь и въезжайте", text: "Общайтесь напрямую с арендодателями." }
-            },
-            landlord: {
-                step1: { title: "Создайте объявление", text: "Добавьте детали объекта и подтвердите обещание." },
-                step2: { title: "Проверка", text: "Команда проверяет качество и прозрачность." },
-                step3: { title: "Свяжитесь с арендаторами", text: "Получайте заявки от проверенных экспатов." }
+                step1: { title: "Отправьте базу", text: "Город, сроки, бюджет." },
+                step2: { title: "Мы позвоним", text: "Короткий звонок синхронизирует ожидания." },
+                step3: { title: "Запускаем вместе", text: "Собираем фото и публикуем после вашего ОК." }
             }
         },
         forms: {
+            access: {
+                title: "Оставьте заявку",
+                subtitle: "Выберите роль и поделитесь основными данными."
+            },
+            roles: {
+                renter: "Арендатор",
+                landlord: "Арендодатель"
+            },
             expat: {
-                title: "Найдите жильё",
-                subtitle: "Расскажите, что вам нужно.",
+                title: "Записаться в лист ожидания",
+                subtitle: "Минимум текста, максимум пользы.",
+                note: "Подборки раннего доступа отправляем раз в неделю — оставьте только главное.",
                 name: "Полное имя",
                 email: "Email",
                 phone: "Телефон (необязательно)",
                 city: "Город",
                 budget: "Бюджет (€/мес)",
                 movein: "Дата въезда",
-                message: "Дополнительные требования",
-                gdpr: "Я соглашаюсь с политикой конфиденциальности.",
-                submit: "Подобрать жильё"
+                message: "Важные условия",
+                gdpr: "Согласен(на) с политикой конфиденциальности.",
+                submit: "Забронировать место"
             },
             landlord: {
-                title: "Разместите объект",
-                subtitle: "Присоединяйтесь к нашей сети.",
+                title: "Подать заявку на размещение",
+                subtitle: "Расскажите об объекте.",
+                note: "Свяжемся в течение 24 часов, соберём фото и опубликуем вместе.",
                 name: "Имя / компания",
                 email: "Email",
                 phone: "Телефон",
@@ -1389,37 +1406,31 @@ const i18n = {
                 typeHouse: "Дом",
                 typeStudio: "Студия",
                 typeRoom: "Комната",
-                rooms: "Количество комнат",
+                rooms: "Комнат",
                 rent: "Аренда (€/мес)",
-                pledge: "Я подтверждаю обещание дружелюбия к экспатам",
-                message: "Дополнительная информация",
-                gdpr: "Я соглашаюсь с политикой конфиденциальности.",
-                submit: "Опубликовать объект"
+                pledge: "Подтверждаю обещание дружелюбия к экспатам",
+                message: "Комментарии для команды",
+                gdpr: "Согласен(на) с политикой конфиденциальности.",
+                submit: "Отправить заявку"
             },
-            success: "Спасибо! Мы ответим в течение 24–48 часов.",
-            discrimination: "В сообщении найдены запрещенные слова. Пожалуйста, исправьте текст.",
+            success: "Спасибо! Ответим в течение 24–48 часов.",
+            discrimination: "В сообщении найдены запрещённые выражения. Пожалуйста, исправьте текст.",
             errors: {
                 required: "Это обязательное поле.",
                 email: "Введите корректный email.",
                 number: "Введите корректное число.",
-                pledgeRequired: "Нужно подтвердить обещание."
+                pledgeRequired: "Необходимо подтвердить обещание."
             }
         },
         faq: {
             title: "Частые вопросы",
-            q1: "Что значит \"дружелюбно к экспатам\"?",
-            a1: "Это жильё, где рады международным арендаторам, есть прозрачные условия и честный отбор.",
-            q2: "Как вы проверяете объявления?",
-            a2: "Команда вручную проверяет качество и соблюдение антидискриминационной политики.",
-            q3: "Xpatly бесплатен?",
-            a3: "Для экспатов поиск бесплатный. Арендодатели платят небольшую плату при успешной сдаче.",
-            q4: "Какие языки поддерживаются?",
-            a4: "Мы поддерживаем английский, эстонский и русский языки.",
-            q5: "Как защищены мои данные?",
-            a5: "Мы полностью соответствуем GDPR и храним данные в зашифрованном виде."
+            q1: "Что происходит после отправки формы?",
+            a1: "Мы проверяем заявку в тот же день, звоним для уточнений и согласуем следующие шаги.",
+            q2: "Когда объявление выйдет в эфир?",
+            a2: "После проверки собираем фото, пишем текст и публикуем после вашего подтверждения — обычно за 48 часов."
         },
         footer: {
-            description: "Делаем экспат-дружелюбную аренду доступной каждому.",
+            description: "Делаем дружелюбную к экспатам аренду доступной каждому.",
             company: { title: "Компания", about: "О нас", how: "Как это работает", contact: "Контакты" },
             legal: { title: "Правовая информация", privacy: "Политика конфиденциальности", terms: "Условия использования", policy: "Антидискриминационная политика" },
             rights: "Все права защищены."
@@ -1436,23 +1447,23 @@ const i18n = {
             },
             how: {
                 title: "Как мы работаем",
-                body: "Расскажите о своих критериях или разместите объект, мы проверим данные и подберём честные совпадения."
+                body: "Расскажите о критериях или объекте, мы проверим данные и подберём честные совпадения."
             },
             contact: {
                 title: "Свяжитесь с нами",
-                body: "Пишите на hello@xpatly.com или оставьте заявку через формы выше — ответим в течение одного рабочего дня."
+                body: "Пишите на hello@xpatly.com или оставьте заявку через формы — ответим в течение рабочего дня."
             },
             privacy: {
                 title: "Конфиденциальность",
-                body: "Все заявки хранятся в зашифрованном виде и обрабатываются строго по требованиям GDPR."
+                body: "Все заявки хранятся зашифрованными и обрабатываются по нормам GDPR."
             },
             terms: {
-                title: "Кратко об условиях",
-                body: "Объявления должны быть прозрачными, комиссии зависят от результата, а удалить данные можно в любой момент."
+                title: "Условия",
+                body: "Комиссия взимается только при успешной сделке, удалить данные можно по запросу."
             },
             policy: {
                 title: "Антидискриминационная политика",
-                body: "Мы блокируем предвзятую лексику и отключаем партнёров, нарушающих принципы равенства."
+                body: "Мы блокируем предвзятые формулировки и отключаем партнёров, нарушающих правила."
             }
         }
     }
@@ -1608,42 +1619,88 @@ function initFAQ() {
 }
 
 function initForms() {
-    document.getElementById('expat-lead-form').addEventListener('submit', handleExpatSubmit);
-    document.getElementById('landlord-lead-form').addEventListener('submit', handleLandlordSubmit);
-}
+    const form = document.getElementById('access-form');
+    if (!form) return;
 
-function handleExpatSubmit(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-    
-    if (data.website) return;
-    
-    // TODO: Replace with your API endpoint
-    console.log('Expat Lead:', data);
-    
-    document.getElementById('expat-success').classList.add('form__success--visible');
-    e.target.reset();
-    setTimeout(() => {
-        document.getElementById('expat-success').classList.remove('form__success--visible');
-    }, 5000);
-}
+    const roleButtons = document.querySelectorAll('[data-role-btn]');
+    const roleSections = document.querySelectorAll('[data-role-section]');
+    const roleInput = document.getElementById('form-role-input');
+    const noteEl = document.querySelector('[data-role-note]');
+    const submitBtn = document.querySelector('[data-role-submit]');
+    const successEl = document.getElementById('access-success');
 
-function handleLandlordSubmit(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-    
-    if (data.website) return;
-    
-    // TODO: Replace with your API endpoint
-    console.log('Landlord Lead:', data);
-    
-    document.getElementById('landlord-success').classList.add('form__success--visible');
-    e.target.reset();
-    setTimeout(() => {
-        document.getElementById('landlord-success').classList.remove('form__success--visible');
-    }, 5000);
+    let currentRole = roleInput?.value || 'renter';
+
+    const updateRoleUI = () => {
+        roleSections.forEach(section => {
+            const role = section.getAttribute('data-role-section');
+            const isActive = role === currentRole;
+            section.classList.toggle('form-role--active', isActive);
+            section.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+
+            section.querySelectorAll('input, select, textarea').forEach(field => {
+                const shouldRequire = field.dataset.required === 'true';
+                field.disabled = !isActive;
+                field.required = isActive && shouldRequire;
+                if (!isActive) {
+                    if (field.type === 'checkbox' || field.type === 'radio') {
+                        field.checked = false;
+                    } else if (field.tagName === 'SELECT') {
+                        field.selectedIndex = 0;
+                    } else {
+                        field.value = '';
+                    }
+                }
+            });
+        });
+
+        roleButtons.forEach(btn => {
+            const isActive = btn.getAttribute('data-role-btn') === currentRole;
+            btn.classList.toggle('role-switch__btn--active', isActive);
+        });
+
+        if (roleInput) roleInput.value = currentRole;
+
+        if (noteEl) {
+            noteEl.setAttribute('data-i18n', currentRole === 'renter' ? 'forms.expat.note' : 'forms.landlord.note');
+        }
+        if (submitBtn) {
+            submitBtn.setAttribute('data-i18n', currentRole === 'renter' ? 'forms.expat.submit' : 'forms.landlord.submit');
+        }
+
+        applyTranslations();
+    };
+
+    roleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const role = btn.getAttribute('data-role-btn');
+            if (role && role !== currentRole) {
+                currentRole = role;
+                updateRoleUI();
+            }
+        });
+    });
+
+    updateRoleUI();
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        if (data.website) return;
+
+        // TODO: Replace with your API endpoint
+        console.log('Access Request:', data);
+
+        successEl?.classList.add('form__success--visible');
+        form.reset();
+        currentRole = roleInput?.value || 'renter';
+        updateRoleUI();
+        setTimeout(() => {
+            successEl?.classList.remove('form__success--visible');
+        }, 5000);
+    });
 }
 
 function initCookieConsent() {
